@@ -1,8 +1,8 @@
 package kodlamaio.hrms.business.concretes;
 
 import kodlamaio.hrms.business.abstracts.CandidateService;
-import kodlamaio.hrms.core.abstracts.EmailService;
-import kodlamaio.hrms.core.abstracts.MernisService;
+import kodlamaio.hrms.core.adapters.abstracts.EmailService;
+import kodlamaio.hrms.core.adapters.abstracts.MernisService;
 import kodlamaio.hrms.core.utilities.results.*;
 import kodlamaio.hrms.dataAcces.CandidateDao;
 import kodlamaio.hrms.entities.concretes.Candidate;
@@ -38,16 +38,9 @@ public class CandidateManager implements CandidateService {
     @Override
     public Result add(CandidateDto candidateDto) {
         VerificationCode verificationCode = new VerificationCode();
-        Result[] results = {CandidateValidation.findIdentity(candidateDto, candidateDao)
+        Result[] results = {
+                  CandidateValidation.findIdentity(candidateDto, candidateDao)
                 , CandidateValidation.findEmail(candidateDto, candidateDao)
-                , UserValidation.emailIsVerified(candidateDto)
-                , UserValidation.passwordIsVerified(candidateDto)
-                , CandidateValidation.birthDateValidator(candidateDto)
-                , CandidateValidation.firstNameValidator(candidateDto)
-                , CandidateValidation.IdentityValidator(candidateDto)
-                , CandidateValidation.lastNameValidator(candidateDto)
-                , UserValidation.passwordNullValidator(candidateDto)
-                , UserValidation.emailNullValidator(candidateDto)
                 , mernisService.isIdentity(candidateDto)
                 , CandidateValidation.compareFormat(candidateDto)};
         Result result = BusinessResult.run(results);

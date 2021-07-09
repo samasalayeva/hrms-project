@@ -1,7 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
-import kodlamaio.hrms.core.abstracts.EmailService;
+import kodlamaio.hrms.core.adapters.abstracts.EmailService;
 import kodlamaio.hrms.core.utilities.results.*;
 import kodlamaio.hrms.dataAcces.EmployerDao;
 import kodlamaio.hrms.entities.concretes.Employer;
@@ -31,14 +31,9 @@ public class EmployerManager implements EmployerService {
     @Override
     public Result add(EmployerDto employerDto) {
         VerificationCode verificationCode = new VerificationCode();
-        Result[] results = {UserValidation.emailIsVerified(employerDto)
-                , UserValidation.emailNullValidator(employerDto)
-                , UserValidation.passwordIsVerified(employerDto)
-                , UserValidation.passwordNullValidator(employerDto)
-                , EmployerValidation.companyNameNullValidate(employerDto)
+        Result[] results = {UserValidation.passwordIsVerified(employerDto)
                 , EmployerValidation.emailWebSiteIsVerified(employerDto)
-                , EmployerValidation.webSiteNullValidate(employerDto)
-                , EmployerValidation.phoneNumberNullValidate(employerDto)};
+                };
 
         Result result = BusinessResult.run(results);
         if (!result.isSuccess()) {

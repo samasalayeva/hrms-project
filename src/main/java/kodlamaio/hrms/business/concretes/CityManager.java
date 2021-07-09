@@ -35,9 +35,8 @@ public class CityManager implements CityService {
         return new SuccessResult("sehir eklendi");
     }
 
-    public static String capitalize(String str)
-    {
-        if(str == null) return str;
+    public static String capitalize(String str) {
+        if (str == null) return str;
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 }

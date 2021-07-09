@@ -3,8 +3,11 @@ package kodlamaio.hrms.entities.concretes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 @Entity
 @Table(name = "verification_codes")
@@ -18,12 +21,12 @@ public  class VerificationCode {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "code" , unique = true)
+    @Column(name = "code")
     private String code;
 
     @Column(name = "is_verified")
     private boolean isVerified;
 
     @Column(name = "verified_data")
-    private LocalDate verifiedData;
+    private LocalDate verifiedData = LocalDate.now();
 }

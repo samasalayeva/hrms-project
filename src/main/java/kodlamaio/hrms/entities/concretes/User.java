@@ -1,10 +1,16 @@
 package kodlamaio.hrms.entities.concretes;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.beans.ConstructorProperties;
+import java.util.List;
 
 @Data
 @Entity
@@ -29,4 +35,8 @@ public  class User {
         this.email = email;
         this.password = password;
     }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Image> image;
 }

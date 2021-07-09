@@ -1,15 +1,13 @@
 package kodlamaio.hrms.business.concretes;
 
 import kodlamaio.hrms.business.abstracts.JobAdvertisementService;
-import kodlamaio.hrms.business.abstracts.JobTitleService;
 import kodlamaio.hrms.core.utilities.results.*;
 import kodlamaio.hrms.dataAcces.JobAdvertisementDao;
 import kodlamaio.hrms.entities.concretes.JobAdvertisement;
-import kodlamaio.hrms.entities.dtos.JobAdvertisementDto;
+import kodlamaio.hrms.entities.dtos.JobAdvertisementWithEmployerWithJobDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -29,17 +27,17 @@ public class JobAdvertisementManager implements JobAdvertisementService {
     }
 
    @Override
-    public DataResult<List<JobAdvertisement>> findByActiveIs() {
+    public DataResult<List<JobAdvertisementWithEmployerWithJobDto>> findByActiveIs() {
         return new SuccessDataResult<>(jobAdvertisementDao.getAllActiveJobAdvert());
     }
 
     @Override
-    public DataResult<List<JobAdvertisement>> findByActiveIsOrderApplicationDeadline() {
+    public DataResult<List<JobAdvertisementWithEmployerWithJobDto>> findByActiveIsOrderApplicationDeadline() {
         return new SuccessDataResult<>(jobAdvertisementDao.findByActiveIsOrderApplicationDeadline());
     }
 
     @Override
-    public DataResult<List<JobAdvertisement>> findByActiveIsAndEmployer_Id(int employer_id) {
+    public DataResult<List<JobAdvertisementWithEmployerWithJobDto>> findByActiveIsAndEmployer_Id(int employer_id) {
         return new SuccessDataResult<>(jobAdvertisementDao.findByActiveIsAndEmployer_Id(employer_id));
     }
 
