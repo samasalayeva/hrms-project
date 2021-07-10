@@ -10,4 +10,6 @@ import java.util.List;
 public interface CandidateDao extends JpaRepository<Candidate,Integer>{
    List<Candidate> findByIdentityNumber(String identity);
    List<Candidate> findByEmail(String email);
+   Candidate findById(int id);
+
 }

@@ -5,6 +5,7 @@ import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.entities.concretes.Candidate;
 import kodlamaio.hrms.entities.dtos.CandidateDto;
+import kodlamaio.hrms.entities.dtos.ResumeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,10 @@ public class CandidatesController {
     @PostMapping("/add")
     public ResponseEntity<?> add(@Valid @RequestBody CandidateDto candidateDto){
         return ResponseEntity.ok(candidateService.add(candidateDto));
+    }
+    @GetMapping("/resumeGet")
+    public DataResult<ResumeDto> findById(@RequestParam int id) {
+        return candidateService.findById(id);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

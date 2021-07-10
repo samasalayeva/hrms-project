@@ -8,6 +8,8 @@ import kodlamaio.hrms.dataAcces.CandidateDao;
 import kodlamaio.hrms.entities.concretes.Candidate;
 import kodlamaio.hrms.entities.concretes.VerificationCode;
 import kodlamaio.hrms.entities.dtos.CandidateDto;
+import kodlamaio.hrms.entities.dtos.ResumeDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +21,15 @@ public class CandidateManager implements CandidateService {
     private CandidateDao candidateDao;
     private EmailService emailService;
     private MernisService mernisService;
+    private ModelMapper modelMapper;
 
 
     @Autowired
-    public CandidateManager(CandidateDao candidateDao, EmailService emailService, MernisService mernisService) {
+    public CandidateManager(CandidateDao candidateDao, EmailService emailService, MernisService mernisService, ModelMapper modelMapper) {
         this.candidateDao = candidateDao;
         this.emailService = emailService;
         this.mernisService = mernisService;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -55,6 +59,13 @@ public class CandidateManager implements CandidateService {
         emailService.send(verificationCode);
         return new SuccessDataResult<>(candidate,"Sisteme kayd gerceklesdi lutfen epostanizi dogrulayin");
 
+    }
+
+    @Override
+    public DataResult<ResumeDto> findById(int id) {
+        Candidate candidate = candidateDao.findById(id);
+        ResumeDto resumeDto = modelMapper.map(candidate,ResumeDto.class);
+        return new SuccessDataResult<>(resumeDto);
     }
 
     public static String capitalize(String str)
